@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  IoT Predictive Maintenance System — Serverless anomaly detection API
+  that ingests sensor telemetry and flags anomalous readings using
+  Modified Z-Score analysis.
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 256
+    Runtime: python3.12
+
+Resources:
+  AnomalyDetectorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/lambda_function.lambda_handler
+      Description: Ingests sensor readings and returns anomaly analysis
+      Architectures:
+        - arm64
+      Events:
+        AnalyseReadings:
+          Type: Api
+          Properties:
+            Path: /analyse
+            Method: post
+        HealthCheck:
+          Type: Api
+          Properties:
+            Path: /health
+            Method: get
+
+Outputs:
+  ApiEndpoint:
+    Description: API Gateway endpoint URL
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/analyse"
+  FunctionArn:
+    Description: Lambda Function ARN
+    Value: !GetAtt AnomalyDetectorFunction.Arn
