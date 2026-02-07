@@ -2,7 +2,7 @@
 
 A serverless anomaly-detection API that ingests sensor telemetry (temperature & vibration) and flags anomalous readings in real time using **Modified Z-Score** analysis. Built with Python, AWS Lambda, and SAM.
 
-![CI](https://github.com/<your-username>/IoTPredictiveMaintenanceSystem/actions/workflows/main.yml/badge.svg)
+![CI](https://github.com/yashashav-dk/IoTPredictiveMaintenanceSystem/actions/workflows/main.yml/badge.svg)
 
 ---
 
